@@ -11,45 +11,70 @@ const memoryDates = [
   {
     id: "trukadero",
     name: "Trukadero",
-    date: "A magical day",
-    description: "Our adventure at Trukadero was filled with laughter and joy",
+    date: "Bowling",
+    description: "Our first date together 💙",
     media: [
-      { type: "image", caption: "Starting our day together" },
-      { type: "video", caption: "Captured moments of pure happiness" },
-      { type: "image", caption: "Your beautiful smile" },
+      { type: "image", src: "/media/Trukadero/truk 1.jpg" },
+      { type: "image", src: "/media/Trukadero/truk 2.jpg" },
+      { type: "image", src: "/media/Trukadero/truk 3.jpg" },
+      { type: "video", src: "/media/Trukadero/Vid 1.mp4"},
+      { type: "video", src: "/media/Trukadero/Vid 2.mp4"},
+      { type: "video", src: "/media/Trukadero/Vid 3.mp4"},
+      { type: "video", src: "/media/Trukadero/Vid 4.mp4" },
+      { type: "video", src: "/media/Trukadero/Vid 5.mp4" },
+      { type: "video", src: "/media/Trukadero/Vid 6.mp4" },
+      { type: "image", src: "/media/trukadero-2.jpg", caption: "Your beautiful smile" },
     ]
   },
   {
     id: "magicland",
     name: "Magicland",
     date: "An unforgettable experience",
-    description: "Every ride, every moment was magical with you",
+    description: "Our most memorable date so far",
     media: [
-      { type: "image", caption: "Ready for adventure" },
-      { type: "video", caption: "Our favorite moments" },
-      { type: "image", caption: "Creating memories together" },
+      { type: "image", src: "/media/Magicland/faith 1.png", },
+      { type: "image", src: "/media/Magicland/faith 2.png", },
+      { type: "video", src: "/media/Magicland/mag 1.mp4" },
+      { type: "video", src: "/media/Magicland/mag 2.mp4" },
+      { type: "video", src: "/media/Magicland/mag 3.mp4" },
+      { type: "video", src: "/media/Magicland/mag 4.mp4" },
+      { type: "video", src: "/media/Magicland/mag 5.mp4" },
+      { type: "video", src: "/media/Magicland/mag 6.mp4" },
+      { type: "video", src: "/media/Magicland/mag 7.mp4" },
     ]
   },
   {
     id: "piccadilly",
     name: "Piccadilly",
-    date: "A perfect evening",
-    description: "Walking through Piccadilly, hand in hand",
+    date: "A wonderful evening",
+    description: "Still a great experience",
     media: [
-      { type: "image", caption: "The lights reflecting in your eyes" },
-      { type: "video", caption: "Our walk through the city" },
-      { type: "image", caption: "Moments I'll treasure forever" },
+      { type: "video", src: "/media/Picadilly/pica 1.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 2.mp4"},
+      { type: "video", src: "/media/Picadilly/pica.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 4.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 5.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 6.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 7.mp4"},
+      { type: "video", src: "/media/Picadilly/pica 8.mp4"},
+
     ]
   },
   {
     id: "tkmall",
     name: "TK Mall",
-    date: "Simple joys",
+    date: "Simple but really enjoyable",
     description: "Sometimes the simplest moments are the most special",
     media: [
-      { type: "image", caption: "Just us, enjoying our time together" },
-      { type: "video", caption: "Candid moments" },
-      { type: "image", caption: "Your laughter is my favorite sound" },
+      { type: "image", src: "/media/TK Mall/TK 1.jpg"},
+      { type: "image", src: "/media/TK Mall/TK 2.jpg"},
+      { type: "image", src: "/media/TK Mall/TK 3.jpg"},
+      { type: "image", src: "/media/TK Mall/TK 4.jpg"},
+      { type: "image", src: "/media/TK Mall/TK 5.jpg"},
+      { type: "video", src: "/media/TK Mall/clip 1.mp4" },
+      { type: "video", src: "/media/TK Mall/clip 2.mp4" },
+      { type: "video", src: "/media/TK Mall/clip 3.mp4" },
+      { type: "video", src: "/media/TK Mall/clip 4.mp4" },
     ]
   },
 ];
@@ -66,16 +91,17 @@ export default function Memories() {
       <div 
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          // use the supplied image from public/media as the page background
+          backgroundImage: `url(${encodeURI('/media/TK Mall/TK 5.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          filter: 'blur(8px)',
+            filter: 'blur(4px)',
         }}
       />
       <div className="fixed inset-0 z-0 bg-background/60" />
       
-      <div className="max-w-4xl mx-auto relative z-10">
+  <div className="max-w-xl md:max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Button
@@ -92,15 +118,16 @@ export default function Memories() {
 
         {/* Date Tabs */}
         <Tabs value={selectedDate} onValueChange={setSelectedDate} className="w-full">
-          <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 mb-8 bg-muted h-auto p-1">
+    {/* Tabs become horizontally scrollable on small screens for better mobile UX */}
+    <TabsList className="w-full flex md:grid md:grid-cols-4 gap-2 mb-8 bg-muted h-auto p-1 overflow-x-auto no-scrollbar">
             {memoryDates.map((date) => (
               <TabsTrigger 
                 key={date.id} 
                 value={date.id}
-                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-3"
+                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-3 px-4 min-w-[140px] flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4 mr-2 hidden sm:block" />
-                {date.name}
+                <span className="whitespace-nowrap">{date.name}</span>
               </TabsTrigger>
             ))}
           </TabsList>
@@ -122,31 +149,52 @@ export default function Memories() {
               {/* Media Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {date.media.map((item, index) => (
-                  <Card key={index} className="shadow-soft overflow-hidden">
+                  <Card key={index} className="shadow-soft overflow-hidden rounded-lg">
                     <CardContent className="p-0">
-                      <div className="aspect-video bg-muted flex items-center justify-center">
-                        {item.type === "video" ? (
-                          <div className="text-center p-8">
-                            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M6 4l10 6-10 6V4z" />
-                              </svg>
-                            </div>
-                            <p className="text-sm text-muted-foreground">Video placeholder</p>
-                          </div>
+                      <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden rounded-t-lg">
+                        {item.src ? (
+                          item.type === "video" ? (
+                            <video
+                              src={item.src}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              className="w-full h-full object-contain bg-black"
+                              // avoid autoplay on mobile
+                              muted={false}
+                            />
+                          ) : (
+                            <img
+                              src={item.src}
+                              alt={item.caption}
+                              loading="lazy"
+                              className="w-full h-full object-contain bg-black"
+                            />
+                          )
                         ) : (
-                          <div className="text-center p-8">
-                            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                              <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
+                          (item.type === "video") ? (
+                            <div className="text-center p-8">
+                              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                                <svg className="w-8 h-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                  <path d="M6 4l10 6-10 6V4z" />
+                                </svg>
+                              </div>
+                              <p className="text-sm text-muted-foreground">Video placeholder</p>
                             </div>
-                            <p className="text-sm text-muted-foreground">Image placeholder</p>
-                          </div>
+                          ) : (
+                            <div className="text-center p-8">
+                              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                              </div>
+                              <p className="text-sm text-muted-foreground">Image placeholder</p>
+                            </div>
+                          )
                         )}
                       </div>
-                      <div className="p-4 bg-card">
-                        <p className="text-sm text-foreground/80 text-center">{item.caption}</p>
+                      <div className="p-3 md:p-4 bg-card">
+                        <p className="text-sm md:text-base text-foreground/80 text-center">{item.caption}</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -154,14 +202,6 @@ export default function Memories() {
               </div>
 
               {/* Upload Instructions */}
-              <Card className="mt-6 shadow-soft border-accent/20">
-                <CardContent className="p-6 text-center">
-                  <p className="text-sm text-muted-foreground">
-                    💙 You can add your videos and images by replacing the placeholders above. 
-                    Each memory can hold multiple videos and photos from our special day.
-                  </p>
-                </CardContent>
-              </Card>
             </TabsContent>
           ))}
         </Tabs>

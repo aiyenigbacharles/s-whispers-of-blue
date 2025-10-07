@@ -3,6 +3,7 @@ import { Heart, ChevronLeft, Bookmark, BookmarkCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from "@/assets/background.jpg";
 
 const loveNotes = [
   "Hey beautiful 💙, just wanted to remind you that you make every day brighter. Your smile is my favorite thing in the world.",
@@ -59,8 +60,21 @@ export default function DailyLoveNotes() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen relative p-4 md:p-8">
+      {/* Background with blur */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(8px)',
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-background/60" />
+      
+      <div className="max-w-2xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Button

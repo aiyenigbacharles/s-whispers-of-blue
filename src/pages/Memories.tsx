@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import backgroundImage from "@/assets/background.jpg";
 
 // Placeholder data structure for memories
 const memoryDates = [
@@ -60,8 +61,21 @@ export default function Memories() {
   const currentMemory = memoryDates.find(m => m.id === selectedDate) || memoryDates[0];
 
   return (
-    <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen relative p-4 md:p-8">
+      {/* Background with blur */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(8px)',
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-background/60" />
+      
+      <div className="max-w-4xl mx-auto relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Button

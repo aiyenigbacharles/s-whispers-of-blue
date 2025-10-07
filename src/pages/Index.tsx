@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import FloatingHearts from "@/components/FloatingHearts";
 import { useEffect, useState } from "react";
+import backgroundImage from "@/assets/background.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -21,7 +22,20 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background with blur */}
+      <div 
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'blur(8px)',
+        }}
+      />
+      <div className="fixed inset-0 z-0 bg-background/60" />
+      
       <FloatingHearts />
       
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4 md:p-8">

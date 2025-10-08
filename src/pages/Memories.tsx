@@ -82,6 +82,7 @@ const memoryDates = [
 export default function Memories() {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(memoryDates[0].id);
+  const [lightbox, setLightbox] = useState<{ type: string; src: string; caption?: string } | null>(null);
 
   const currentMemory = memoryDates.find(m => m.id === selectedDate) || memoryDates[0];
 
@@ -147,28 +148,35 @@ export default function Memories() {
               </Card>
 
               {/* Media Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
                 {date.media.map((item, index) => (
-                  <Card key={index} className="shadow-soft overflow-hidden rounded-lg">
+                  <Card key={index} className="shadow-soft overflow-hidden rounded-lg cursor-pointer group">
                     <CardContent className="p-0">
-                      <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden rounded-t-lg">
+                      <div className="aspect-video bg-muted flex items-center justify-center overflow-hidden rounded-t-lg relative">
                         {item.src ? (
                           item.type === "video" ? (
-                            <video
-                              src={item.src}
-                              controls
-                              playsInline
-                              preload="metadata"
-                              className="w-full h-full object-contain bg-black"
-                              // avoid autoplay on mobile
-                              muted={false}
-                            />
+                            <>
+                              <video
+                                src={item.src}
+                                controls={false}
+                                playsInline
+                                preload="metadata"
+                                className="w-full h-full object-cover bg-black"
+                                muted
+                              />
+                              {/* Play overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="play-overlay bg-black/40 rounded-full p-3">
+                                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                              </div>
+                            </>
                           ) : (
                             <img
                               src={item.src}
                               alt={item.caption}
                               loading="lazy"
-                              className="w-full h-full object-contain bg-black"
+                              className="w-full h-full object-cover bg-black"
                             />
                           )
                         ) : (
@@ -192,6 +200,14 @@ export default function Memories() {
                             </div>
                           )
                         )}
+                        {/* clickable overlay to open lightbox */}
+                        {item.src && (
+                          <button
+                            aria-label="Open media"
+                            onClick={() => setLightbox({ type: item.type, src: item.src, caption: item.caption })}
+                            className="absolute inset-0 bg-transparent"
+                          />
+                        )}
                       </div>
                       <div className="p-3 md:p-4 bg-card">
                         <p className="text-sm md:text-base text-foreground/80 text-center">{item.caption}</p>
@@ -200,6 +216,26 @@ export default function Memories() {
                   </Card>
                 ))}
               </div>
+
+              {/* Lightbox modal */}
+              {lightbox && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8">
+                  <div className="absolute inset-0 bg-black/70" onClick={() => setLightbox(null)} />
+                  <div className="relative max-w-full w-full sm:w-11/12 md:w-3/4 lg:w-2/3">
+                    <div className="bg-black rounded-lg overflow-hidden">
+                      {lightbox.type === 'video' ? (
+                        <video src={lightbox.src} controls autoPlay playsInline className="w-full h-auto max-h-[80vh] bg-black" />
+                      ) : (
+                        <img src={lightbox.src} alt={lightbox.caption} className="w-full h-auto max-h-[80vh] object-contain bg-black" />
+                      )}
+                      {lightbox.caption && <div className="p-3 bg-card text-center text-sm text-foreground/80">{lightbox.caption}</div>}
+                      <button aria-label="Close" onClick={() => setLightbox(null)} className="absolute top-3 right-3 p-2 rounded-full bg-white/10">
+                        <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Upload Instructions */}
             </TabsContent>

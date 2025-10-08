@@ -87,6 +87,30 @@
   .mobile-hidden { display: none; }
 }
 
+/* Play overlay and lightbox styles for Memories */
+.play-overlay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  backdrop-filter: blur(4px);
+}
+
+/* Lightbox override to ensure it sits above all other UI */
+.lightbox-open {
+  overflow: hidden;
+}
+
+/* Hide scrollbar for horizontally scrollable tabs */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Make images cover on small devices for a tighter grid look */
+@media (max-width: 640px) {
+  .aspect-video img, .aspect-video video { object-fit: cover; }
+}
+
 /* iPhone 13 specific-ish tweak (390px wide device) */
 @media (max-width: 430px) and (min-device-width: 360px) {
   .max-w-2xl { width: 92%; }

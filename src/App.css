@@ -111,6 +111,15 @@
   .aspect-video img, .aspect-video video { object-fit: cover; }
 }
 
+/* Show subtle scrollbar for TabsList on very small screens for discoverability */
+@media (max-width: 640px) {
+  .no-scrollbar { scrollbar-width: thin; }
+  .no-scrollbar::-webkit-scrollbar { height: 6px; }
+  .no-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 999px; }
+  /* make tabs slightly more compact */
+  .no-scrollbar .rounded-lg { padding-top: .4rem; padding-bottom: .4rem; }
+}
+
 /* Ensure header card floats above tabs/background on small screens */
 @media (max-width: 640px) {
   .max-w-xl > .flex.items-center { z-index: 25; }

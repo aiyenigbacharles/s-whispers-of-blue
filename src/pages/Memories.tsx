@@ -120,14 +120,17 @@ export default function Memories() {
         {/* Date Tabs */}
         <Tabs value={selectedDate} onValueChange={setSelectedDate} className="w-full">
     {/* Tabs become horizontally scrollable on small screens for better mobile UX */}
-    <TabsList className="w-full flex md:grid md:grid-cols-4 gap-2 mb-4 md:mb-8 bg-muted h-auto p-1 sm:p-1 overflow-x-auto no-scrollbar">
+    <TabsList
+      className="w-full flex md:grid md:grid-cols-4 gap-2 mb-4 md:mb-8 bg-muted h-auto p-1 sm:p-1 overflow-x-auto overflow-y-visible no-scrollbar z-30 rounded-lg"
+      style={{ paddingLeft: 'calc(0.75rem + env(safe-area-inset-left, 0px))', paddingRight: 'calc(0.75rem + env(safe-area-inset-right, 0px))' }}
+    >
             {memoryDates.map((date) => (
               <TabsTrigger 
                 key={date.id} 
                 value={date.id}
-                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2 sm:py-3 px-3 sm:px-4 min-w-[120px] sm:min-w-[140px] flex items-center justify-center gap-2"
+                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2 sm:py-3 px-3 sm:px-4 min-w-[100px] sm:min-w-[120px] flex items-center justify-center gap-2"
               >
-                <Calendar className="w-4 h-4 mr-2 hidden sm:block" />
+                <Calendar className="w-4 h-4 mr-2 block" />
                 <span className="whitespace-nowrap">{date.name}</span>
               </TabsTrigger>
             ))}

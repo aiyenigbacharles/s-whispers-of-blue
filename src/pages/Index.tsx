@@ -8,7 +8,7 @@ import backgroundImage from "@/assets/background.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [greeting, setGreeting] = useState("Hey Faith 💙");
+  const [greeting, setGreeting] = useState("Hey you my Baby, Faith Pius 💙");
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -104,7 +104,7 @@ const Index = () => {
 
           {/* Footer Message */}
           <p className="text-center text-sm text-muted-foreground">
-            Made with endless love for Faith 💙
+            Made for you my Baby, Faith Pius 💙
           </p>
         </div>
       </div>

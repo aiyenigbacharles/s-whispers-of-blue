@@ -104,7 +104,7 @@ export default function Memories() {
       
   <div className="max-w-xl md:max-w-4xl mx-auto relative z-10">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-4 md:mb-8 z-20 relative">
           <Button
             variant="ghost"
             size="icon"
@@ -120,12 +120,12 @@ export default function Memories() {
         {/* Date Tabs */}
         <Tabs value={selectedDate} onValueChange={setSelectedDate} className="w-full">
     {/* Tabs become horizontally scrollable on small screens for better mobile UX */}
-    <TabsList className="w-full flex md:grid md:grid-cols-4 gap-2 mb-8 bg-muted h-auto p-1 overflow-x-auto no-scrollbar">
+    <TabsList className="w-full flex md:grid md:grid-cols-4 gap-2 mb-4 md:mb-8 bg-muted h-auto p-1 sm:p-1 overflow-x-auto no-scrollbar">
             {memoryDates.map((date) => (
               <TabsTrigger 
                 key={date.id} 
                 value={date.id}
-                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-3 px-4 min-w-[140px] flex items-center justify-center gap-2"
+                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2 sm:py-3 px-3 sm:px-4 min-w-[120px] sm:min-w-[140px] flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4 mr-2 hidden sm:block" />
                 <span className="whitespace-nowrap">{date.name}</span>

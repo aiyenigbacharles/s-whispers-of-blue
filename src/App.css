@@ -40,3 +40,55 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Mobile / Safe area adjustments */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Reduce heavy visuals on small screens for performance and readability */
+@media (max-width: 430px) {
+  #root {
+    padding-left: calc(1rem + var(--safe-top));
+    padding-right: calc(1rem + var(--safe-top));
+    padding-top: calc(1rem + var(--safe-top));
+    padding-bottom: calc(1rem + var(--safe-bottom));
+  }
+
+  .logo {
+    height: 4.2rem;
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  /* Disable the heavy background blur on small devices */
+  .fixed[style*="filter: 'blur(8px)'"] {
+    filter: blur(2px) !important;
+  }
+
+  /* Make typography scale better on narrow screens */
+  h1, .text-3xl {
+    font-size: 1.6rem;
+    line-height: 1.15;
+  }
+
+  .text-lg, p {
+    font-size: 0.95rem;
+  }
+
+  /* Hide some decorative animations to improve battery/CPU */
+  .floating-heart, .sparkle {
+    display: none;
+  }
+  .mobile-hidden { display: none; }
+}
+
+/* iPhone 13 specific-ish tweak (390px wide device) */
+@media (max-width: 430px) and (min-device-width: 360px) {
+  .max-w-2xl { width: 92%; }
+  .grid.grid-cols-1.md\:grid-cols-3 { grid-template-columns: 1fr; }
+}
